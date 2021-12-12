@@ -59,7 +59,8 @@ API_CHANGES : dict
 """
 
 if not is_documentation_building():
-    sys.modules['colour.biochemistry'] = biochemistry(
-        sys.modules['colour.biochemistry'], build_API_changes(API_CHANGES))
+    sys.modules[
+        'colour.biochemistry'] = biochemistry(  # type:ignore[assignment]
+            sys.modules['colour.biochemistry'], build_API_changes(API_CHANGES))
 
     del ModuleAPI, is_documentation_building, build_API_changes, sys
