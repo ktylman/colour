@@ -3,6 +3,8 @@
 Defines the unit tests for the :mod:`colour.characterisation.aces_it` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import unittest
@@ -27,6 +29,7 @@ from colour.characterisation import (
 from colour.characterisation.aces_it import RESOURCES_DIRECTORY_RAWTOACES
 from colour.colorimetry import (
     MSDS_CMFS,
+    MultiSpectralDistributions,
     SDS_ILLUMINANTS,
     SpectralShape,
     reshape_msds,
@@ -61,12 +64,12 @@ __all__ = [
     'TestCamera_RGB_to_ACES2065_1',
 ]
 
-MSDS_CANON_EOS_5DMARK_II = sds_and_msds_to_msds(
+MSDS_CANON_EOS_5DMARK_II: MultiSpectralDistributions = sds_and_msds_to_msds(
     read_sds_from_csv_file(
         os.path.join(RESOURCES_DIRECTORY_RAWTOACES,
                      'CANON_EOS_5DMark_II_RGB_Sensitivities.csv')).values())
 
-SD_AMPAS_ISO7589_STUDIO_TUNGSTEN = read_sds_from_csv_file(
+SD_AMPAS_ISO7589_STUDIO_TUNGSTEN: dict = read_sds_from_csv_file(
     os.path.join(RESOURCES_DIRECTORY_RAWTOACES,
                  'AMPAS_ISO_7589_Tungsten.csv'))['iso7589']
 

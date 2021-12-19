@@ -30,6 +30,8 @@ context=article
     http://www.lume.ufrgs.br/handle/10183/26950
 """
 
+from __future__ import annotations
+
 from functools import partial
 
 from colour.characterisation import RGB_DisplayPrimaries
@@ -47,7 +49,7 @@ __all__ = [
     'MSDS_DISPLAY_PRIMARIES_LCD',
 ]
 
-DATA_DISPLAY_PRIMARIES_LCD = {
+DATA_DISPLAY_PRIMARIES_LCD: dict = {
     'Apple Studio Display': {
         380: (0.0000, 0.0000, 0.0000),
         385: (0.0000, 0.0000, 0.0000),
@@ -133,20 +135,18 @@ DATA_DISPLAY_PRIMARIES_LCD = {
     }
 }
 
-MSDS_DISPLAY_PRIMARIES_LCD = LazyCaseInsensitiveMapping({
-    'Apple Studio Display':
-        partial(
-            RGB_DisplayPrimaries,
-            DATA_DISPLAY_PRIMARIES_LCD['Apple Studio Display'],
-            name='Apple Studio Display')
-})
+MSDS_DISPLAY_PRIMARIES_LCD: LazyCaseInsensitiveMapping = (
+    LazyCaseInsensitiveMapping({
+        'Apple Studio Display':
+            partial(
+                RGB_DisplayPrimaries,
+                DATA_DISPLAY_PRIMARIES_LCD['Apple Studio Display'],
+                name='Apple Studio Display')
+    }))
 """
 Primaries multi-spectral distributions of *LCD* displays.
 
 References
 ----------
 :cite:`Fairchild1998b`, :cite:`Machado2010a`
-
-MSDS_DISPLAY_PRIMARIES_LCD : LazyCaseInsensitiveMapping
-    **{'Apple Studio Display'}**
 """

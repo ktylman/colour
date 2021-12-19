@@ -26,6 +26,8 @@ References
     http://www.lume.ufrgs.br/handle/10183/26950
 """
 
+from __future__ import annotations
+
 from functools import partial
 
 from colour.characterisation import RGB_DisplayPrimaries
@@ -43,7 +45,7 @@ __all__ = [
     'MSDS_DISPLAY_PRIMARIES_CRT',
 ]
 
-DATA_DISPLAY_PRIMARIES_CRT = {
+DATA_DISPLAY_PRIMARIES_CRT: dict = {
     'Typical CRT Brainard 1997': {
         380.0: (0.0025, 0.0018, 0.0219),
         385.0: (0.0017, 0.0016, 0.0336),
@@ -129,20 +131,18 @@ DATA_DISPLAY_PRIMARIES_CRT = {
     }
 }
 
-MSDS_DISPLAY_PRIMARIES_CRT = LazyCaseInsensitiveMapping({
-    'Typical CRT Brainard 1997':
-        partial(
-            RGB_DisplayPrimaries,
-            DATA_DISPLAY_PRIMARIES_CRT['Typical CRT Brainard 1997'],
-            name='Typical CRT Brainard 1997')
-})
+MSDS_DISPLAY_PRIMARIES_CRT: LazyCaseInsensitiveMapping = (
+    LazyCaseInsensitiveMapping({
+        'Typical CRT Brainard 1997':
+            partial(
+                RGB_DisplayPrimaries,
+                DATA_DISPLAY_PRIMARIES_CRT['Typical CRT Brainard 1997'],
+                name='Typical CRT Brainard 1997')
+    }))
 """
 Primaries multi-spectral distributions of *CRT* displays.
 
 References
 ----------
 :cite:`Machado2010a`
-
-MSDS_DISPLAY_PRIMARIES_CRT : LazyCaseInsensitiveMapping
-    **{'Typical CRT Brainard 1997'}**
 """

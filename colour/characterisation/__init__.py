@@ -105,7 +105,9 @@ API_CHANGES : dict
 """
 
 if not is_documentation_building():
-    sys.modules['colour.characterisation'] = characterisation(
-        sys.modules['colour.characterisation'], build_API_changes(API_CHANGES))
+    sys.modules['colour.characterisation'] = (
+        characterisation(  # type: ignore[assignment]
+            sys.modules['colour.characterisation'],
+            build_API_changes(API_CHANGES)))
 
     del ModuleAPI, is_documentation_building, build_API_changes, sys
