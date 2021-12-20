@@ -3,6 +3,8 @@
 Defines the unit tests for the :mod:`colour.io.luts.lut` module.
 """
 
+from __future__ import annotations
+
 import numpy as np
 import os
 import textwrap
@@ -18,6 +20,7 @@ from colour.algebra import (
 )
 from colour.io.luts.lut import AbstractLUT
 from colour.io.luts import LUT1D, LUT3x1D, LUT3D, LUT_to_LUT
+from colour.hints import NDArray
 from colour.utilities import tsplit, tstack
 
 __author__ = 'Colour Developers'
@@ -37,9 +40,9 @@ __all__ = [
     'TestLUT3D',
 ]
 
-RESOURCES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'resources')
+RESOURCES_DIRECTORY: str = os.path.join(os.path.dirname(__file__), 'resources')
 
-RANDOM_TRIPLETS = np.reshape(
+RANDOM_TRIPLETS: NDArray = np.reshape(
     random_triplet_generator(8, random_state=np.random.RandomState(4)),
     (4, 2, 3))
 
@@ -98,6 +101,8 @@ class AbstractLUTTest(unittest.TestCase):
 
         self._LUT_factory = None
 
+        self._size = None
+        self._dimensions = None
         self._domain_1 = None
         self._domain_2 = None
         self._domain_3 = None
@@ -107,7 +112,6 @@ class AbstractLUTTest(unittest.TestCase):
         self._table_1_kwargs = None
         self._table_2_kwargs = None
         self._table_3_kwargs = None
-        self._dimensions = None
         self._str = None
         self._repr = None
         self._applied_1 = None
@@ -164,7 +168,7 @@ class AbstractLUTTest(unittest.TestCase):
         # pylint: disable=E1102
         LUT = self._LUT_factory()
 
-        np.testing.assert_array_equal(LUT.table, LUT.linear_table())
+        np.testing.assert_array_equal(LUT.table, LUT.linear_table(self._size))
 
         table_1 = self._table_1 * 0.8 + 0.1
         LUT.table = table_1
@@ -461,7 +465,7 @@ class AbstractLUTTest(unittest.TestCase):
         LUT_1 = self._LUT_factory()
 
         np.testing.assert_almost_equal(
-            LUT_1.linear_table(), self._table_1, decimal=7)
+            LUT_1.linear_table(self._size), self._table_1, decimal=7)
 
         np.testing.assert_almost_equal(
             spow(
@@ -545,9 +549,9 @@ class AbstractLUTTest(unittest.TestCase):
         np.testing.assert_almost_equal(
             LUT_4.apply(
                 RANDOM_TRIPLETS,
-                self._interpolator_1,
-                self._interpolator_kwargs_1,
-                'Inverse',
+                direction='Inverse',
+                interpolator=self._interpolator_1,
+                interpolator_kwargs=self._interpolator_kwargs_1,
                 **self._invert_kwargs_1,
             ),
             self._applied_4,
@@ -573,16 +577,17 @@ class TestLUT1D(AbstractLUTTest):
 
         self._LUT_factory = LUT1D
 
+        self._size = 10
+        self._dimensions = 1
         self._domain_1 = np.array([0, 1])
         self._domain_2 = np.array([-0.1, 1.5])
         self._domain_3 = np.linspace(-0.1, 1.5, 10)
         self._table_1 = np.linspace(0, 1, 10)
         self._table_2 = self._table_1 ** (1 / 2.2)
-        self._table_3 = spow(np.linspace(-0.1, 1.5, 10), (1 / 2.6))
-        self._table_1_kwargs = {'size': 10, 'domain': self._domain_1}
-        self._table_2_kwargs = {'size': 10, 'domain': self._domain_2}
-        self._table_3_kwargs = {'size': 10, 'domain': self._domain_3}
-        self._dimensions = 1
+        self._table_3 = spow(np.linspace(-0.1, 1.5, self._size), (1 / 2.6))
+        self._table_1_kwargs = {'size': self._size, 'domain': self._domain_1}
+        self._table_2_kwargs = {'size': self._size, 'domain': self._domain_2}
+        self._table_3_kwargs = {'size': self._size, 'domain': self._domain_3}
         self._interpolator_1 = LinearInterpolator
         self._interpolator_kwargs_1 = {}
         self._interpolator_2 = CubicSplineInterpolator
@@ -664,6 +669,8 @@ class TestLUT3x1D(AbstractLUTTest):
 
         self._LUT_factory = LUT3x1D
 
+        self._size = 10
+        self._dimensions = 2
         samples_1 = np.linspace(0, 1, 10)
         samples_2 = np.linspace(-0.1, 1.5, 15)
         samples_3 = np.linspace(-0.1, 3.0, 20)
@@ -682,13 +689,12 @@ class TestLUT3x1D(AbstractLUTTest):
                 np.hstack([samples_2, np.full(5, np.nan)]),
                 samples_3,
             ]), 1 / 2.6)
-        self._table_1_kwargs = {'size': 10, 'domain': self._domain_1}
-        self._table_2_kwargs = {'size': 10, 'domain': self._domain_2}
+        self._table_1_kwargs = {'size': self._size, 'domain': self._domain_1}
+        self._table_2_kwargs = {'size': self._size, 'domain': self._domain_2}
         self._table_3_kwargs = {
             'size': np.array([10, 15, 20]),
             'domain': self._domain_3
         }
-        self._dimensions = 2
         self._interpolator_1 = LinearInterpolator
         self._interpolator_kwargs_1 = {}
         self._interpolator_2 = CubicSplineInterpolator
@@ -780,6 +786,8 @@ class TestLUT3D(AbstractLUTTest):
 
         self._LUT_factory = LUT3D
 
+        self._size = 33
+        self._dimensions = 3
         samples_1 = np.linspace(0, 1, 10)
         samples_2 = np.linspace(-0.1, 1.5, 15)
         samples_3 = np.linspace(-0.1, 3.0, 20)
@@ -808,13 +816,12 @@ class TestLUT3D(AbstractLUTTest):
         self._table_3 = spow(
             np.flip(np.transpose(self._table_3).reshape([10, 15, 20, 3]), -1),
             1 / 2.6)
-        self._table_1_kwargs = {'size': 33, 'domain': self._domain_1}
-        self._table_2_kwargs = {'size': 33, 'domain': self._domain_2}
+        self._table_1_kwargs = {'size': self._size, 'domain': self._domain_1}
+        self._table_2_kwargs = {'size': self._size, 'domain': self._domain_2}
         self._table_3_kwargs = {
             'size': np.array([10, 15, 20]),
             'domain': self._domain_3
         }
-        self._dimensions = 3
         self._interpolator_1 = table_interpolation_trilinear
         self._interpolator_kwargs_1 = {}
         self._interpolator_2 = table_interpolation_tetrahedral

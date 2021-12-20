@@ -90,7 +90,11 @@ if is_openimageio_installed():  # pragma: no cover
     })
     if hasattr(np, 'float128'):  # pragma: no cover
         BIT_DEPTH_MAPPING['float128'] = BitDepth_Specification(
-            'float128', np.float128, FLOAT, 1, False)
+            'float128',
+            np.float128,  # type: ignore[attr-defined]
+            FLOAT,
+            1,
+            False)
 else:  # pragma: no cover
     BIT_DEPTH_MAPPING = CaseInsensitiveMapping({
         'uint8':
@@ -106,7 +110,11 @@ else:  # pragma: no cover
     })
     if hasattr(np, 'float128'):  # pragma: no cover
         BIT_DEPTH_MAPPING['float128'] = BitDepth_Specification(
-            'float128', np.float128, None, 1, False)
+            'float128',
+            np.float128,  # type: ignore[attr-defined]
+            None,
+            1,
+            False)
 
 
 def convert_bit_depth(a, bit_depth='float32'):
