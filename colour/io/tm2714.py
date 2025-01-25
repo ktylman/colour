@@ -257,7 +257,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Manufacturer.
         """
 
@@ -287,7 +287,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Catalog number.
         """
 
@@ -317,7 +317,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Description.
         """
 
@@ -347,7 +347,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Document creator.
         """
 
@@ -377,7 +377,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Unique identifier.
         """
 
@@ -407,7 +407,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Measurement equipment.
         """
 
@@ -437,7 +437,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Laboratory.
         """
 
@@ -467,7 +467,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Report number.
         """
 
@@ -497,7 +497,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Report date.
         """
 
@@ -527,7 +527,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Document creation date.
         """
 
@@ -557,7 +557,7 @@ class Header_IESTM2714:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Comments.
         """
 
@@ -1025,7 +1025,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Path.
         """
 
@@ -1104,7 +1104,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Spectral quantity.
         """
 
@@ -1171,7 +1171,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Reflection geometry.
         """
 
@@ -1222,7 +1222,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             Transmission geometry.
         """
 
@@ -1255,7 +1255,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`float`
+        :class:`float` or :py:data:`None`
             Full-width half-maximum bandwidth.
         """
 
@@ -1288,7 +1288,7 @@ class SpectralDistribution_IESTM2714(SpectralDistribution):
 
         Returns
         -------
-        :py:data:`None` or :class:`bool`
+        :class:`bool` or :py:data:`None`
             Whether bandwidth correction has been applied to the measured data.
         """
 
