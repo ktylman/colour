@@ -768,7 +768,7 @@ class Data_Otsu2018:
 
         Returns
         -------
-        :py:data:`None` or :class:`numpy.ndarray`
+        :class:`numpy.ndarray` or :py:data:`None`
             Mean distribution.
         """
 

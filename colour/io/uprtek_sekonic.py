@@ -398,8 +398,9 @@ class SpectralDistribution_UPRTek(SpectralDistribution_IESTM2714):
                 attribute, tokens = row[0], row[1:]
                 value = tokens[0] if len(tokens) == 1 else tokens
 
-                match = re.match(self._SPECTRAL_DATA_PATTERN, attribute)
-                if match:
+                if (
+                    match := re.match(self._SPECTRAL_DATA_PATTERN, attribute)
+                ) is not None:
                     wavelength = match.group(1)
 
                     if wavelength == self._SPECTRAL_SECTION:

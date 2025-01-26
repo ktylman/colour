@@ -268,8 +268,7 @@ def spectrum_attribute_to_sd_Fichet2021(
     parts = spectrum_attribute.split(";")
     for part in parts:
         domain, range_ = part.split(":")
-        match = pattern.match(domain.replace(".", ","))
-        if match is not None:
+        if (match := pattern.match(domain.replace(".", ","))) is not None:
             multiplier, units = match.group(3, 4)
             wavelength = match_groups_to_nm(match.group(1), multiplier, units)
             data[wavelength] = float(range_)
@@ -370,8 +369,7 @@ class Specification_Fichet2021:
         channels = image_specification.channelnames
 
         for i, channel in enumerate(channels):
-            match = pattern_emissive.match(channel)
-            if match:
+            if (match := pattern_emissive.match(channel)) is not None:
                 is_emissive = True
 
                 component = match.group(1)
@@ -382,8 +380,7 @@ class Specification_Fichet2021:
                 if len(components) > 1:
                     is_polarised = True
 
-            match = pattern_bispectral.match(channel)
-            if match:
+            if (match := pattern_bispectral.match(channel)) is not None:
                 is_bispectral = True
 
                 input_multiplier, input_units = match.group(3, 4)
@@ -396,8 +393,7 @@ class Specification_Fichet2021:
                 )
                 components[input_wavelength][output_wavelength] = i
 
-            match = pattern_reflective.match(channel)
-            if match:
+            if (match := pattern_reflective.match(channel)) is not None:
                 multiplier, units = match.group(3, 4)
                 wavelength = match_groups_to_nm(match.group(1), multiplier, units)
                 components["T"][wavelength] = i

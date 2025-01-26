@@ -242,7 +242,7 @@ class Extrapolator:
 
         Returns
         -------
-        :py:data:`None` or Real
+        Real or :py:data:`None`
             Left value to return for x < xi[0].
         """
 
@@ -272,7 +272,7 @@ class Extrapolator:
 
         Returns
         -------
-        :py:data:`None` or Real
+        Real or :py:data:`None`
             Right value to return for x > xi[-1].
         """
 

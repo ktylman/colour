@@ -389,7 +389,7 @@ class RGB_Colourspace:
 
         Returns
         -------
-        :py:data:`None` or :class:`str`
+        :class:`str` or :py:data:`None`
             *RGB* colourspace whitepoint name.
         """
 
@@ -506,7 +506,7 @@ class RGB_Colourspace:
 
         Returns
         -------
-        :py:data:`None` or Callable
+        Callable or :py:data:`None`
             Encoding colour component transfer function (Encoding CCTF) /
             opto-electronic transfer function (OETF).
         """
@@ -540,7 +540,7 @@ class RGB_Colourspace:
 
         Returns
         -------
-        :py:data:`None` or Callable
+        Callable or :py:data:`None`
             Decoding colour component transfer function (Decoding CCTF) /
             electro-optical transfer function (EOTF).
         """

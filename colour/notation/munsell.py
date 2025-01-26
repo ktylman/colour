@@ -2007,7 +2007,7 @@ def interpolation_method_from_renotation_ovoid(
 
     Returns
     -------
-    :py:data:`None` or :class:`str`
+    :class:`str` or :py:data:`None`
         Interpolation method.
 
     References
